@@ -3,15 +3,15 @@ package services
 import (
 	"errors"
 	"gorm.io/gorm"
-	"myApp/Models"
+	"myApp/models"
 )
 
 // MovieServiceInterface Interface for movies operation
 type MovieServiceInterface interface {
-	GetAllMovies() ([]Models.Movie, error)
-	GetMovieBy(id uint) (Models.Movie, error)
-	CreateMovie(movie Models.Movie) (Models.Movie, error)
-	UpdateMovie(id uint, updateMovie Models.Movie) (Models.Movie, error)
+	GetAllMovies() ([]models.Movie, error)
+	GetMovieBy(id uint) (models.Movie, error)
+	CreateMovie(movie models.Movie) (models.Movie, error)
+	UpdateMovie(id uint, updateMovie models.Movie) (models.Movie, error)
 	DeleteMovie(id uint) error
 }
 
@@ -25,14 +25,14 @@ func NewMovieService(db *gorm.DB) MovieServiceInterface {
 	return &MovieService{db: db}
 }
 
-func (s *MovieService) GetAllMovies() ([]Models.Movie, error) {
-	var movies []Models.Movie
+func (s *MovieService) GetAllMovies() ([]models.Movie, error) {
+	var movies []models.Movie
 	result := s.db.Find(&movies)
 	return movies, result.Error
 }
 
-func (s *MovieService) GetMovieBy(id uint) (Models.Movie, error) {
-	var movie Models.Movie
+func (s *MovieService) GetMovieBy(id uint) (models.Movie, error) {
+	var movie models.Movie
 	result := s.db.Preload("Director").First(&movie, id)
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		return movie, errors.New("movie Not Found")
@@ -40,13 +40,13 @@ func (s *MovieService) GetMovieBy(id uint) (Models.Movie, error) {
 	return movie, result.Error
 }
 
-func (s *MovieService) CreateMovie(movie Models.Movie) (Models.Movie, error) {
+func (s *MovieService) CreateMovie(movie models.Movie) (models.Movie, error) {
 	result := s.db.Create(&movie)
 	return movie, result.Error
 }
 
-func (s *MovieService) UpdateMovie(id uint, updateMovie Models.Movie) (Models.Movie, error) {
-	var movie Models.Movie
+func (s *MovieService) UpdateMovie(id uint, updateMovie models.Movie) (models.Movie, error) {
+	var movie models.Movie
 	if err := s.db.First(&movie, id).Error; err != nil {
 		return movie, errors.New("movie Not Found")
 	}
@@ -58,7 +58,7 @@ func (s *MovieService) UpdateMovie(id uint, updateMovie Models.Movie) (Models.Mo
 }
 
 func (s *MovieService) DeleteMovie(id uint) error {
-	var movie Models.Movie
+	var movie models.Movie
 	if err := s.db.Find(&movie, id).Error; err != nil {
 		return errors.New("movie Not Found")
 	}
