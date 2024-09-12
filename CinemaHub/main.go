@@ -10,6 +10,12 @@ import (
 	"myApp/services"
 )
 
+
+// @title CinemaHub API
+// @version 1.0
+// @description This is a sample server for CinemaHub.
+// @host localhost:8080
+// @BasePath /
 func main() {
 	dsn := "postgresql://postgres:123456@localhost:5432/TestDB?sslmode=disable"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})

@@ -8,21 +8,32 @@ import (
 	"strconv"
 )
 
+// MovieController handles movie related requests
 type MovieController struct {
 	service services.MovieServiceInterface
 }
 
+// NewMovieController creates a new MovieControllerss
 func NewMovieController(service services.MovieServiceInterface) *MovieController {
-	return &MovieController{service: service}
+	return &MovieController{service}
 }
 
+
+// GetAllMovies godoc
+// @Summary Get all movies
+// @Description Get all movies
+// @Tags movies
+// @Accept  json
+// @Produce  json
+// @Success 200 {array} models.Movie
+// @Router /movies [get]
 func (c *MovieController) GetAllMovies(ctx *gin.Context) {
 	movies, err := c.service.GetAllMovies()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"movies": movies})
+	ctx.JSON(http.StatusOK, movies)
 }
 
 func (c *MovieController) GetMovieById(ctx *gin.Context) {
