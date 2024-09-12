@@ -2,7 +2,7 @@
 ```markdown
 # CinemaHub
 
-CinemaHub is an API for managing movies and directors, built with Go using the Gin framework and GORM for PostgreSQL database interaction.
+CinemaHub is an API for managing movies and directors, built with Go using the Gin framework, GORM for PostgreSQL database interaction, and Swagger for API documentation.
 
 ## Features
 
@@ -10,6 +10,7 @@ CinemaHub is an API for managing movies and directors, built with Go using the G
 - **Manage Directors:** Add and view director details.
 - **Object-Oriented Architecture:** Designed using structs, methods, and interfaces for an object-oriented approach.
 - **PostgreSQL Database:** Stores information in a robust and reliable PostgreSQL database.
+- **Swagger Documentation:** Interactive API documentation with Swagger UI.
 
 ## Prerequisites
 
@@ -45,6 +46,20 @@ dsn := "host=localhost user=postgres password=yourpassword dbname=yourdb port=54
 
 GORM's auto-migration feature will create the necessary tables in your database. This will happen automatically when you run the application.
 
+### Generate Swagger Documentation
+
+To generate Swagger documentation, make sure you have Swag installed. If not, install it using:
+
+```bash
+go get -u github.com/swaggo/swag/cmd/swag
+```
+
+Then generate the Swagger files:
+
+```bash
+swag init
+```
+
 ### Run the Project
 
 To start the project, execute:
@@ -54,6 +69,14 @@ go run main.go
 ```
 
 The API will be available on port 8080.
+
+### Access Swagger Documentation
+
+Once the server is running, you can access the interactive Swagger documentation at:
+
+```
+http://localhost:8080/swagger/index.html
+```
 
 ## API Endpoints
 
@@ -81,7 +104,7 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 For questions or suggestions, you can reach out via email:
 
-[Mohsen.Khorrami1990@gmail.com](mailto:youremail@example.com)
+[Mohsen.Khorrami1990@gmail.com](mailto:Mohsen.Khorrami1990@gmail.com)
 ```
 
 ### How to Use the Documentation
@@ -90,4 +113,4 @@ For questions or suggestions, you can reach out via email:
 - Update the project name, database connection string (`dsn`), GitHub link, and contact email with your details.
 - Upload the file to your GitHub repository to serve as the project's documentation.
 
-This README provides a comprehensive overview of CinemaHub, guiding users through installation, setup, usage, and contribution steps.
+This README now includes instructions for setting up and accessing Swagger documentation, providing a complete overview for users to install, run, and contribute to the CinemaHub project.
